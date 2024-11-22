@@ -1,1 +1,25 @@
+ion-tab-button {
+  ion-label {
+    color: #999999;
+  }
+  & svg {
+    height: 32px;
+  }
+  &:hover {
+    ion-label {
+        color: #0054e9;
+      }
+    svg g rect {
+      fill: #0054e9;
+    }
+  }
+}
 
+.active-tab {
+  svg g rect {
+    fill: #443e3e;
+  }
+  ion-label {
+    color: #443e3e;
+  }
+}

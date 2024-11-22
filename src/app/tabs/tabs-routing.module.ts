@@ -20,6 +20,10 @@ const routes: Routes = [
         loadChildren: () => import('../modules/devices/devices.module').then(m => m.DevicesPageModule)
       },
       {
+        path: 'profile',
+        loadChildren: () => import('../modules/profile/profile.module').then(m => m.ProfileModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/main',
         pathMatch: 'full'
