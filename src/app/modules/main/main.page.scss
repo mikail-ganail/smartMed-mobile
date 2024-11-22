@@ -1,0 +1,43 @@
+.full-screen-block {
+  display: flex;
+  flex-direction: column;
+  //   height: 100%;
+  justify-content: flex-start;
+  ion-toolbar {
+    text-align: center;
+
+    ion-title {
+      margin-top: 20px;
+      font-size: 34px;
+    }
+    .lalaland {
+      color: #8ac44b;
+      font-size: 30px;
+    }
+  }
+}
+
+.inner-blocks {
+  margin: 0 5%;
+  width: 90%;
+}
+
+// .block {
+//   border: 1px solid #ccc;
+//   border-radius: 8px;
+//   overflow: hidden;
+// }
+
+.card {
+  display: flex;
+  height: 90px;
+  margin-top: 10px;
+  background-color: red;
+}
+
+/* Увеличиваем отступ для мобильных устройств */
+@media (max-width: 767px) {
+  .inner-blocks {
+    grid-template-columns: repeat(1, 1fr); /* Один блок в ряд на мобильных */
+  }
+}

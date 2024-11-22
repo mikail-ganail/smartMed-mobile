@@ -1,20 +1,211 @@
 <ion-tabs>
-
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="tab1" href="/tabs/tab1">
-      <ion-icon aria-hidden="true" name="triangle"></ion-icon>
-      <ion-label>Tab 1</ion-label>
+  <ion-tab-bar slot="bottom" [style.height.px]="80">
+    <ion-tab-button tab="main" href="/tabs/main" [ngClass]="{'active-tab': isActiveTab('/tabs/main')}">
+      <svg
+        width="39"
+        height="40"
+        viewBox="0 0 39 40"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+      >
+        <mask
+          id="mask0_20_334"
+          style="mask-type: alpha"
+          maskUnits="userSpaceOnUse"
+          x="0"
+          y="0"
+          width="39"
+          height="40"
+        >
+          <rect width="38.4" height="40" fill="url(#pattern0_20_334)" />
+        </mask>
+        <g mask="url(#mask0_20_334)">
+          <rect
+            x="38.4"
+            width="40"
+            height="38.4"
+            transform="rotate(90 38.4 0)"
+            fill="#999999"
+          />
+        </g>
+        <defs>
+          <pattern
+            id="pattern0_20_334"
+            patternContentUnits="objectBoundingBox"
+            width="1"
+            height="1"
+          >
+            <use
+              xlink:href="#image0_20_334"
+              transform="matrix(0.00578704 0 0 0.00555556 -0.00925924 0)"
+            />
+          </pattern>
+          <image
+            id="image0_20_334"
+            width="176"
+            height="180"
+            xlink:href="data:image/png;base64,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"
+          />
+        </defs>
+      </svg>
+      <ion-label>Главная</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="tab2" href="/tabs/tab2">
-      <ion-icon aria-hidden="true" name="ellipse"></ion-icon>
-      <ion-label>Tab 2</ion-label>
+    <ion-tab-button tab="analyzes" href="/tabs/analyzes" [ngClass]="{'active-tab': isActiveTab('/tabs/analyzes')}">
+      <svg
+        width="39"
+        height="40"
+        viewBox="0 0 39 40"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+      >
+        <mask
+          id="mask0_20_345"
+          style="mask-type: alpha"
+          maskUnits="userSpaceOnUse"
+          x="0"
+          y="0"
+          width="39"
+          height="40"
+        >
+          <rect width="38.4" height="40" fill="url(#pattern0_20_345)" />
+        </mask>
+        <g mask="url(#mask0_20_345)">
+          <rect
+            x="38.4"
+            width="40"
+            height="38.4"
+            transform="rotate(90 38.4 0)"
+            fill="#999999"
+          />
+        </g>
+        <defs>
+          <pattern
+            id="pattern0_20_345"
+            patternContentUnits="objectBoundingBox"
+            width="1"
+            height="1"
+          >
+            <use
+              xlink:href="#image0_20_345"
+              transform="matrix(0.00591856 0 0 0.00568182 -0.0208333 0)"
+            />
+          </pattern>
+          <image
+            id="image0_20_345"
+            width="176"
+            height="176"
+            xlink:href="data:image/png;base64,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"
+          />
+        </defs>
+      </svg>
+      <ion-label>Анализы</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="tab3" href="/tabs/tab3">
-      <ion-icon aria-hidden="true" name="square"></ion-icon>
-      <ion-label>Tab 3</ion-label>
+    <ion-tab-button tab="device" href="/tabs/device" [ngClass]="{'active-tab': isActiveTab('/tabs/device')}">
+      <svg
+        width="39"
+        height="40"
+        viewBox="0 0 39 40"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+      >
+        <mask
+          id="mask0_20_349"
+          style="mask-type: alpha"
+          maskUnits="userSpaceOnUse"
+          x="0"
+          y="0"
+          width="39"
+          height="40"
+        >
+          <rect width="38.4" height="40" fill="url(#pattern0_20_349)" />
+        </mask>
+        <g mask="url(#mask0_20_349)">
+          <rect
+            x="38.4"
+            width="40"
+            height="38.4"
+            transform="rotate(90 38.4 0)"
+            fill="#999999"
+          />
+        </g>
+        <defs>
+          <pattern
+            id="pattern0_20_349"
+            patternContentUnits="objectBoundingBox"
+            width="1"
+            height="1"
+          >
+            <use
+              xlink:href="#image0_20_349"
+              transform="matrix(0.00585206 0 0 0.00561798 0.137172 0)"
+            />
+          </pattern>
+          <image
+            id="image0_20_349"
+            width="124"
+            height="178"
+            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHwAAACyCAYAAACA/Kt6AAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAQYSURBVHgB7duBURNBGIbhDxuQDtwOpANTgh0YO8AKSAdiBWAJVpBYAXRwRwVABXE3uTgRR2/vkgm3+73PzO84mAOON5fc7eGZhpvF+RDnopvzbnAa93Ge4vyMs+rm6FLQqziPcdbMpKaJM48TdCSXInRJ4UcLcZbSq3zzzPhZasTRHrR9xpSwg8zf02hA9CBi20QPIrZV9OVEvlHmeLPUnrO9v8/j3GicB+EU3mmcL3GuX36wUf6zJl2mLbRdeMFppZ95ije01x+LY/MBG1+LlbUpCNq2yO222N+4GbMRJmGhvHZ3uw0uMje4FqYq90ifpQdfZjyw0RHXanF06S02Z/n78o266j2+x2mFqUp3z75lPG6W/kiv7X3PDM7Gpy8o75U665QeZeh7WX98k/FJnoRSPPf8+3lOcFSE4GYIbobgZghuhuBmCG6G4GYIbobgZghuhuBmCG6G4GYIbobgZghuhuBmCG6G4GYIbobgZghuhuBmCG6G4GYIbobgZghuhuBmCG6G4GYIbobgZghuhuBmCG6G4GYIbobgZghuhuBmCG6G4GYIbobgZghuhuBmCG6G4GYIbobgZghuhuBmCG6G4GYIbobgZghuhuBmCG6G4GYIbobgZghuhuBmCG6G4GYIbobgZghuhuBmCG6G4GYIbobgZghuhuBmCG6G4GYIbobgZghuhuBmCG6G4GYIbobgZghuhuBmCG6G4GYIbobgZghuhuBmCG6G4GYIbobgZghuhuBmCG6G4GYIbobgZghuhuBmCG6G4GYIbobgZghuhuBmCG6G4GYIbobgZghuhuBmCG6G4GYIbobgZtyCz+LcxGnirLu56z72USbWPdOofCHOUnn7GlSuVv37WH3wiziP6t/P3Tx225SolXnwoGGx96MHlaeVefD0va9HzlLladWzXzWftKWTsKDxZt1Upfbgh/qkytQc/L0ON1Nlag5+jDPtoMqw0mam5uAPOty9KlNz8JUOR/CC3OpwP1Shmhde0uLJ2IWXEve7Vf9+sbQqllarCZ5w88QseBKUt66+ErdHqwi+k5Zbb7U9+97tX9t9bKbytSK4lVY9PdNl2VPPJzkXSvG27wEp+HPPY1LwIExdOtHsOzjvU/Cc1aS5MHU5t4M3y82XyrtU4aV9uoLyrkJS683Zac716VdhqlKbnIa/1xfuMje4EqYmNclp1+xvtMjcaHekB+G1pbfY3CM7zfzlxkOWH5vui5W6BFmy9DNPR/XQXhtne58ovaGPfZ9uhVMIGuez/nG7eKn8Zw1Txqz0H0GH/fI+M61plPGqEER0m9g7QUS3ib0TxHt6ibPSgZfNc3G0lzDpMm2zdHoMQYSfcuiFMu91nGm42d6kL3KM/8OFPOl3F9Lt7PtuVhr4+/e/ACqwTuUNpkX9AAAAAElFTkSuQmCC"
+          />
+        </defs>
+      </svg>
+      <ion-label>Устройство</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="profile" href="/tabs/profile" [ngClass]="{'active-tab': isActiveTab('/tabs/profile')}">
+      <svg
+        width="39"
+        height="40"
+        viewBox="0 0 39 40"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+      >
+        <mask
+          id="mask0_20_353"
+          style="mask-type: alpha"
+          maskUnits="userSpaceOnUse"
+          x="0"
+          y="0"
+          width="39"
+          height="40"
+        >
+          <rect width="38.4" height="40" fill="url(#pattern0_20_353)" />
+        </mask>
+        <g mask="url(#mask0_20_353)">
+          <rect
+            x="38.4"
+            width="40"
+            height="38.4"
+            transform="rotate(90 38.4 0)"
+            fill="#999999"
+          />
+        </g>
+        <defs>
+          <pattern
+            id="pattern0_20_353"
+            patternContentUnits="objectBoundingBox"
+            width="1"
+            height="1"
+          >
+            <use
+              xlink:href="#image0_20_353"
+              transform="matrix(0.00578704 0 0 0.00555556 0.0746528 0)"
+            />
+          </pattern>
+          <image
+            id="image0_20_353"
+            width="147"
+            height="180"
+            xlink:href="data:image/png;base64,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"
+          />
+        </defs>
+      </svg>
+      <ion-label>Профиль</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
-
 </ion-tabs>
