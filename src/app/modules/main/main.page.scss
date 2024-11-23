@@ -11,8 +11,17 @@
       font-size: 34px;
     }
     .lalaland {
-      color: #8ac44b;
       font-size: 30px;
+
+      .good {
+        color: #8ac44b;
+      }
+      .sad {
+        color: #F8981D;
+      }
+      .bad {
+        color: #F04438;
+      }
     }
   }
 }
@@ -30,9 +39,31 @@
 
 .card {
   display: flex;
+  justify-content: space-between;
   height: 90px;
   margin-top: 10px;
-  background-color: red;
+  border-radius: 20px;
+  box-shadow: 0px 15px 20px 0px #0000000d;
+  padding: 20px;
+
+  & .card-content {
+    p {
+      font-size: 20px;
+      font-weight: 400;
+    }
+    h2 {
+      font-size: 24px;
+      font-weight: 400;
+      color: #8ac44b;
+
+      p {
+        display: inline;
+        font-size: 16px;
+        font-weight: 300;
+        color: #999999;
+      }
+    }
+  }
 }
 
 /* Увеличиваем отступ для мобильных устройств */

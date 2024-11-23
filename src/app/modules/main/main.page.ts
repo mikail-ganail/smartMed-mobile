@@ -9,18 +9,18 @@ import { AnalyzeService } from 'src/app/core/services/analyze.service';
 export class MainPage {
   currentResult: string = '';
 
-  // constructor(private readonly analyzeService: AnalyzeService) {}
+  constructor(public readonly analyzeService: AnalyzeService) {}
 
   ngOnInit(): void {
-    // this.analyzeService.getAnswer().subscribe((data) => {
-    //   // Предположим, что здесь вы получаете нужные данные
-    //   this.updateResult();
-    // });
+    this.analyzeService.getAnswer().subscribe((data) => {
+      // Предположим, что здесь вы получаете нужные данные
+      this.updateResult();
+    });
   }
 
-  // private updateResult() {
-  //   this.currentResult = this.analyzeService.getResultMessage(
-  //     this.analyzeService.timeSectionSig()
-  //   );
-  // }
+  private updateResult() {
+    this.currentResult = this.analyzeService.getResultMessage(
+      this.analyzeService.timeSectionSig()
+    );
+  }
 }

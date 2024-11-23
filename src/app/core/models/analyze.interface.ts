@@ -4,3 +4,9 @@ export interface IAnalyze {
   saturation: number;
   breath: number;
 }
+
+export interface IAnalyzeData {
+  analyz: IAnalyze;
+  state: string;
+  time: string;
+}

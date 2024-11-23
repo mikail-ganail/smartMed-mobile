@@ -13,13 +13,56 @@
   <div class="full-screen-block">
     <ion-toolbar>
       <ion-title color="dark">Общее состояние</ion-title>
-      <ion-title class="lalaland">{{currentResult}}</ion-title>
+      <ion-title class="lalaland">
+        <p style="display: inline;" *ngIf="analyzeService.timeSectionSig() === 0" class="good">Хорошее</p>
+        <p style="display: inline;" *ngIf="analyzeService.timeSectionSig() === 1" class="sad">Среднее</p>
+        <p style="display: inline;" *ngIf="analyzeService.timeSectionSig() === 2" class="bad">Плохое</p>
+        <img *ngIf="analyzeService.timeSectionSig() === 0" style="width: 30px;" src="../../../assets/icon/emoji/good.svg" alt="">
+        <img *ngIf="analyzeService.timeSectionSig() === 1" style="width: 30px;" src="../../../assets/icon/emoji/sad.svg" alt="">
+        <img *ngIf="analyzeService.timeSectionSig() === 2" style="width: 30px;" src="../../../assets/icon/emoji/bad.svg" alt="">
+      </ion-title>
     </ion-toolbar>
 
     <div class="inner-blocks">
-      <div class="card" *ngFor="let item of [1,2,3,4]; let i = index">
-        <!-- Здесь можно добавить контент для каждого блока -->
-        <img src="assets/icon/main-{{i+1}}.svg" alt="" />
+      <div class="card">
+        <div class="card-content">
+          <p>Пульс</p>
+          <h2>
+            {{analyzeService.analyzeList[analyzeService.timeSectionSig()].pulse}}
+            <p>ударов в минуту</p>
+          </h2>
+        </div>
+        <img src="assets/icon/main-1.svg" alt="" />
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <p>Давление</p>
+          <h2>
+            {{analyzeService.analyzeList[analyzeService.timeSectionSig()].breath}}
+            <p>мм рт. ст.</p>
+          </h2>
+        </div>
+        <img style="width: 65px;" src="assets/icon/main-2.svg" alt="" />
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <p>Сатурация</p>
+          <h2>
+            {{analyzeService.analyzeList[analyzeService.timeSectionSig()].saturation}}
+            <p>%</p>
+          </h2>
+        </div>
+        <img src="assets/icon/main-3.svg" alt="" />
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <p>Частота дыхательных движений</p>
+          <h2>
+            {{analyzeService.analyzeList[analyzeService.timeSectionSig()].pressure}}
+            <p>в минуту</p>
+          </h2>
+        </div>
+        <img src="assets/icon/main-4.svg" alt="" />
       </div>
     </div>
   </div>

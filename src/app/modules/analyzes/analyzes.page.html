@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title> Анализы </ion-title>
-    <ion-button slot="end" color="warning" style="margin-right: 20px;">
+    <ion-button slot="end" color="warning" style="margin-right: 20px">
       <div>
         <img src="assets/icon/uvedi.svg" alt="" />
       </div>
@@ -9,11 +9,613 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content fullscreen>
+  <div class="full-screen-block">
+    <div class="inner-blocks">
+      <div
+        style="margin-top: 10px"
+        *ngFor="let anal of ass.analyzeHistory; let i = index"
+      >
+        <div class="card">
+          <div class="card-content">
+            <div class="upper-content">
+              <div class="time">{{anal.time}}</div>
+              <div (click)="openAll(i)" style="cursor: pointer;">
+                <svg
+                  width="16"
+                  height="9"
+                  viewBox="0 0 16 9"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  [ngClass]="{'open-arrow': isOpenList[i]}"
+                >
+                  <path d="M1 1L8 8L15 1" stroke="black" />
+                </svg>
+              </div>
+            </div>
+            <div class="results-wrap">
+              <div class="state">
+                <p>Состояние: {{anal.state}}</p>
+                <img
+                  *ngIf="anal.state === 'Хорошее'"
+                  src="../../../assets/icon/emoji/good.svg"
+                  alt=""
+                />
+                <img
+                  *ngIf="anal.state === 'Среднее'"
+                  src="../../../assets/icon/emoji/sad.svg"
+                  alt=""
+                />
+                <img
+                  *ngIf="anal.state === 'Плохое'"
+                  src="../../../assets/icon/emoji/bad.svg"
+                  alt=""
+                />
+              </div>
+              <div
+                class="results"
+                *ngIf="!isOpenList[i]"
+                [ngClass]="{good: anal.state === 'Хорошее', sad: anal.state === 'Среднее', bad: anal.state === 'Плохое'}"
+              >
+                <div>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                  >
+                    <mask
+                      id="mask0_20_647"
+                      style="mask-type: alpha"
+                      maskUnits="userSpaceOnUse"
+                      x="0"
+                      y="0"
+                      width="20"
+                      height="20"
+                    >
+                      <rect
+                        width="19.2"
+                        height="20"
+                        fill="url(#pattern0_20_647)"
+                      />
+                    </mask>
+                    <g mask="url(#mask0_20_647)">
+                      <rect
+                        x="19.2"
+                        width="20"
+                        height="19.2"
+                        transform="rotate(90 19.2 0)"
+                        fill="#8AC44B"
+                      />
+                    </g>
+                    <defs>
+                      <pattern
+                        id="pattern0_20_647"
+                        patternContentUnits="objectBoundingBox"
+                        width="1"
+                        height="1"
+                      >
+                        <use
+                          xlink:href="#image0_20_647"
+                          transform="matrix(0.0111111 0 0 0.0106667 0 0.02)"
+                        />
+                      </pattern>
+                      <image
+                        id="image0_20_647"
+                        width="90"
+                        height="90"
+                        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEsklEQVR4nO2dyWsUQRSHf7hEIwZcUHEhaDyrJxXEiFc18T9wCwge1JMSEKJXTVwOIogLLleXkzEHFxDEJY56lyjowTXuS4zbSJE32A79qqu6qnqS7vdBXZzX1T2/aaurv6meAIIgCIIgCML/jAVwEEA/gBcAOgHUVdUIHjgAoFzV9vroWPjHeACfY4J+GakRPLA2JuRKa/CxA2GIk5qgm6hGcGQUDRFc0EtddyAMsUITsmqtVCcEmG1EW5vrDoQhHiUE3U51ggMLE0JWbb/LDoQhdhsEfZZqBQfuGwTd47IDAZgD4I9B0CUJy43tBiGr9kyCduOaYdADEnR6JgH4YRi0+A4H1luELL7DgQuWQYvv8OieywC+iu8I756/AjgnviO8ez5Pt9viOwK753UkkMR3BHTPPwFMBbBJfEdY93yVXm8R3xHWPW+j19U0TnxHIPf8B0Aj1cwT3xHOPZciNRPFd4Rzzx1Vdd/Ed6SnUeOeF1TVPhXf4d8998XUloroO8bQlOs0gBsAHpAQ2gVghkU/V5nw1HSvmstF8x0rATzRGLXvALoMltZO1rjn5pj6M0XyHeosHjRUmN105nOsY7Z7DWB0TH1hfMdMAB8NQ660PZr+zjPbKLkUx3DwHeMAbAFwG8A7AF8A3KEbK/WaF45ZhlymA5kW01c9vWYz5tbad8wG0Kt5rw+pxom5mvFUTc8+aQ6gI6a/Vs0Hoz6EOGrpO9T15q7BifUw6cyeAOAIgA+WZ6wKfzkdyBWm5nnMhfEEU6tmLhw+fUdd5LmYsue2Vbfjoyk7VcNJhUWauvWROnWhe8XUqQskRxOzjbqRseVQgIArTY3frHTnbm+TzmY1pES5ztTej9Q0a/qbogmnwdP6jqm0TaigP/kOOno2mzxzsiJhmlZxzzp8+I6dAUPWBp1m6PgYUZjVH1ofs81FqulLcM86XH2HOr7HgYNmhw7Qlf4wgPcJnfygeeOyFP7il+aMj7pnHa6+Y03gkBMvhj5p0Mxe3jrOHHocfUc3s72aHyfNUm4bTu8yfar3oOVZ0GHYr4vvUMPLb2b7jQbbz0oI28sNiy3zaKgoG7Zq98zh4js6mW37NTdJ1aizdTOAm3QLrlZW3aLhom64r6Prs+gzre+o19yc7EPOnxMsU1NK1ZS2lL6D8yS/6X/fiKfXIGh1C29KWt9xj9nuEgqy3vkV4559+o4lmv2vQk6oI6nEvdHjlv2l8R3cTOUx3cAU4pnBFsu+bNd36LzGDuSM6cyb/UyLz22x8R2c1xigD6EQixg7U/Zl6jt0XkN9e5/bH6Dqoi9e39C8V/1bGkx9h85rLPbwnnJPj+F4z60DUV9JCZ58x3yN19hgshMBRr6ji6npT3kBLiTtCb4j114jS9qYENWQUgivkRUtCb4j914jK5YyQZYSvMbqWh/4SKOJCfJpkbxGFjQwYQ5qvIa6FRdSYLMO5VtevUYWPLMI+lStD3YkU7IIWrxGAN8hXsMzZw2DFq8RyHeI18jId4jXyMh3RL2G/GK6B7hnYMRrZOQ7xGtk5DvEa2TkO3K5XqPWvC7Seo1a0hUTtPwcfaB1fftobZ9q8sfKBEEQBEFAcfkLQnsUV73Q5HsAAAAASUVORK5CYII="
+                      />
+                    </defs>
+                  </svg>
 
+                  <p>Пульс - {{ass.analyzeList[ass.timeSectionSig()].pulse}}</p>
+                </div>
+                <div>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                  >
+                    <mask
+                      id="mask0_20_648"
+                      style="mask-type: alpha"
+                      maskUnits="userSpaceOnUse"
+                      x="0"
+                      y="0"
+                      width="20"
+                      height="20"
+                    >
+                      <rect
+                        width="19.2"
+                        height="20"
+                        fill="url(#pattern0_20_648)"
+                      />
+                    </mask>
+                    <g mask="url(#mask0_20_648)">
+                      <rect
+                        x="19.2"
+                        width="20"
+                        height="19.2"
+                        transform="rotate(90 19.2 0)"
+                        fill="#F04438"
+                      />
+                    </g>
+                    <defs>
+                      <pattern
+                        id="pattern0_20_648"
+                        patternContentUnits="objectBoundingBox"
+                        width="1"
+                        height="1"
+                      >
+                        <use
+                          xlink:href="#image0_20_648"
+                          transform="matrix(0.0111111 0 0 0.0106667 0 0.02)"
+                        />
+                      </pattern>
+                      <image
+                        id="image0_20_648"
+                        width="90"
+                        height="90"
+                        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFdUlEQVR4nO2d2WtdRRjAf8Z6471WS7WagD65gOKCiKKVWFyKdXnQov+FbdMX9xcRwQXR1tiqTy647/ahVAQ1xjaNRWyh1AXUtpiq1cZqVWoMOfLJFwiamXNO7pwzMzfzg+/l5jLnm+/OmfmWmQkkEolEIpFIJBKJRKIUxwDLgDuBZ4CtwNfAGPCXyph+Nqzfke9eDbTKPWru0QOsBoaAcSCbpciP8BHQD5zku1MhcRmwAfi7DeOaRH6wd4A+5jCX68jLapIPgSXMIXqB54DJGo08XV7VaaqjuQn4xZOBp4sspMvpQBrAQElj7ANeAFaqN3E6sBA4SmWhfiZ/W6Xf/b5E+/JGrVHdOoJjgfcKdn4/8ChwQRvPuxBYC/xU8JnvAvOJnEXAtgKd3QOsAJoOn93Ut2Fvged/orpGiQQOWwq4X2srHlFi8HuAwzm6bItxZDcKTBc7gbNr1OkcYFeOTpt0/o+GvIXvRU+hsoT2r+ToJmtEFNyc05EBoMujfkcAD+d4I8tjCEZsfvIa4njrDoSeJ3k+Z7roIhy6cqYRyQgGm7uYtCx8LcJD5uzPLVNIkMkoU4LocM3eRVnO1dTqTLq/T2AssbyC9xI+91v0D2pUb7BEfM0a9ehWj0IWs9+Bpwo+X6a17wx9eJtA6LEk7SWsrtPIG2fQQYxdhH5L9HoiAbDakiBqejZyBvxWsI2WJRElORPvDHmOsLotRhY5WKKtxwxtfEAA7pFpxW4n1enKyCKPFG4NLrJ4TnWuNf9jmSVpH4KRN+r3yoTnPxjaWopH7jIoJdUOlxyti9WIehPiVex2bOQpXjK0dwceebaGxeMUYEeOUV0Z2eZ9PI1Hhg1KSR3P1UjeUaORhWsM7W7GI98alDrVUfv9NRsZLfjO1PY3eORng1LHO2p/pISRdzswsnCCoX3xsb1hcu1clfAPlTC0/OguaFhcPG+MB2ToXx09s9vQvgwqbxwIaOoYdvTMRRW/MbNij0Gp0xy1v6qEoV0lsM6wrAHeMO3bkIjR1Wu8vYCRP3M4XV1reMbHBBiwiFvmMmDZnmPkk2vIRnoNWO42KCVhrEu6Ndoc1gXykL5NKyrYpGgq2MrRDW8s9ZhUqgJbUukKPKdJTS6e7OqMjYstrl0r1MR/SJtl2k38y7EM76y0lLK8j4KSb6eplHULgWwDm6jYt60Dk7cxEdKZl7cMSu6NZFTPB0YNfXiDgOiz+Ln3ET4PWPRfTGBstmS9ziNczrdkIQcJkEssmxy/0kNDsW1yvJRAMRU2M+C1wLbtHgm8adFXtiAHS2/OsbMBwmGdRc8fQ9+ILtxg6UAGrPc8smUkP5Gjo5zwjTrCylRe9zRnH5czXUR1WEiYpydSbR36omZvRLyLLwscf5MRHxUL9ERqZpFx9WFbFXsWDxW4bGVEdY6SBQXrfvuB2x0bvKUFCFPEN10+dVjn9GrsTQU6O3W9wzr1yWezYHZpJLde2yq66Ubm7o5gXoEF8r8ibuLLwK3AdcBZmtxp6lYxcSXPBK4HbtMLT0wbejJLKje6Oblo4XNfSWNUITJV3UiH06uHO31c9TOpEV8wac86WKwl/LqMPKRz/5ylT/PZpuJBOzKhAUqwySEf9GhZbNDBBYODWt0JPl/hmxZwlR7dmLoy02TYrdOuzLwykopO0GQGSSRDx0mWRnQydEeRpRGdDB0NDeBBx3mQUc11d8zdo1VvYMnaFGk7oVSZ0ZMbeKOkpcn5gxUaJwtU5E6/x+u6UuLJADqceRaxQaVIqejPADqaeZY/qt6bkgxNPYYW0tTBvzudKqepe+hC+KcIWc0ypkVmr/crtcNohcaRiwMTNQQsch1mQmmosV2O7BSCJxIJIucfp7XIppkzV+oAAAAASUVORK5CYII="
+                      />
+                    </defs>
+                  </svg>
+                  <p>
+                    Давление -
+                    {{ass.analyzeList[ass.timeSectionSig()].pressure}}/{{ass.analyzeList[ass.timeSectionSig()].pressure}}
+                  </p>
+                </div>
+                <div>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                  >
+                    <mask
+                      id="mask0_20_649"
+                      style="mask-type: alpha"
+                      maskUnits="userSpaceOnUse"
+                      x="0"
+                      y="0"
+                      width="20"
+                      height="20"
+                    >
+                      <rect
+                        width="19.2"
+                        height="20"
+                        fill="url(#pattern0_20_649)"
+                      />
+                    </mask>
+                    <g mask="url(#mask0_20_649)">
+                      <rect
+                        x="19.2"
+                        width="20"
+                        height="19.2"
+                        transform="rotate(90 19.2 0)"
+                        fill="#8AC44B"
+                      />
+                    </g>
+                    <defs>
+                      <pattern
+                        id="pattern0_20_649"
+                        patternContentUnits="objectBoundingBox"
+                        width="1"
+                        height="1"
+                      >
+                        <use
+                          xlink:href="#image0_20_649"
+                          transform="matrix(0.0111111 0 0 0.0106667 0 0.02)"
+                        />
+                      </pattern>
+                      <image
+                        id="image0_20_649"
+                        width="90"
+                        height="90"
+                        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAADeUlEQVR4nO2cz04UQRDGv3DYDb6CFxHhKPoAeBBIBB9A4RmEV1BQIj6C4hsQUdCr/w6yEkU8IRGOAqJRFD2IMWA6qU02ZHdneqanu2v3+yWVhdlZuuajt7q6a3oAQgghhBBCCCG56QAwBuAxgG0Af+V1EcCovE9ychrAOwBHTWxFziMZMeJ9SRC5arsAurI21M50pOjJx+0tw4g9Y5YiV+1qhrbamicZhV4I7bg2djIKvRXacW0cZBT6T2jHtbGdUehPoR3XxmJGoR+GdlwboxmFvhLacY159IqlyG9aOY8uA5gA8BrAbzHz87i8l3dmuGsxMzyVoY0hALMA1mv8/wDgHoBBRMJJAO+bXPyqnJOHLpnxJfVk2+l3L4CXKf6BLwD0ICDlBJFrxS7nbKtDZnwLkicfyOsjicm24eICgO8WIcmc249ATFg4eg3x0GspctW+ATgTwuFlCycriIc04aKRPQ/h8C8LB/cRB0M5RK7aQMxC/0Qc3Hcg9F3fTmsMHesOhDapn1fGFQ6G+w6E9h4Gy5K6JTm2CqCEOFApNGQyslrwhCW20LGGQJQkNFRkgDS2JMdKiItZjYOhRgYdCH0x9EVo4WkOkc26B0mJWXz6qmkKrpl+Ec5G5GCLStrpkbWLJJGfsSe7YUAyibWarGlNjnHgI4RoocgiLPFYhG17fBZh2xqtRVh1aKykqMSmNmjOJW1U7bblHIBp+fbWbq8zv98C0AcPtHLo6JW7ndJc23zRt4ZpLMKm4bLcBmGzVPoDwAgKQmMRNo3I/yxFrpr53DAKQlsRNilc2Pbkej27GwWhqQjbjLQxOckeNG2lzTnvSGRjh76yEY1MOxTa2FToC4qVZcdCa0tnvfHZsdDcpet4N24jM3+PONyN28i4S7cBjNGeuOm4R9/w5bjGVbojh3n0WV+On5BcclMGBvM6CaAT8TLvSOg5nyJXGjixFLHYPbJWkUfkPZ9PJZtSHL9Gcq7eXfLp7GaCQxuIm+EMPXvPt8hpkn8Nj9zpllW4wxQD31yohxgm9eiP0EOfpH6VY5v6KxIivWUX9ZhMEPp6SOdaiU7JLuqJ/CrirEMlnZJdbMjXbUN6MkUmhJDWoATgjqwVm5RqRllVXQ0zdbIWc4x4qHrsUGX3bNURmiUiT6HjdhENtTslEdv0bA6GhBBCCCGEEAKP/AdayjxvuLp+AQAAAABJRU5ErkJggg=="
+                      />
+                    </defs>
+                  </svg>
+                  <p>
+                    Сатурация -
+                    {{ass.analyzeList[ass.timeSectionSig()].saturation}}
+                  </p>
+                </div>
+              </div>
+              <div
+                class="results-all"
+                *ngIf="isOpenList[i]"
+                [ngClass]="{good: anal.state === 'Хорошее', sad: anal.state === 'Среднее', bad: anal.state === 'Плохое'}"
+              >
+                <div>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                  >
+                    <mask
+                      id="mask0_20_647"
+                      style="mask-type: alpha"
+                      maskUnits="userSpaceOnUse"
+                      x="0"
+                      y="0"
+                      width="20"
+                      height="20"
+                    >
+                      <rect
+                        width="19.2"
+                        height="20"
+                        fill="url(#pattern0_20_647)"
+                      />
+                    </mask>
+                    <g mask="url(#mask0_20_647)">
+                      <rect
+                        x="19.2"
+                        width="20"
+                        height="19.2"
+                        transform="rotate(90 19.2 0)"
+                        fill="#8AC44B"
+                      />
+                    </g>
+                    <defs>
+                      <pattern
+                        id="pattern0_20_647"
+                        patternContentUnits="objectBoundingBox"
+                        width="1"
+                        height="1"
+                      >
+                        <use
+                          xlink:href="#image0_20_647"
+                          transform="matrix(0.0111111 0 0 0.0106667 0 0.02)"
+                        />
+                      </pattern>
+                      <image
+                        id="image0_20_647"
+                        width="90"
+                        height="90"
+                        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEsklEQVR4nO2dyWsUQRSHf7hEIwZcUHEhaDyrJxXEiFc18T9wCwge1JMSEKJXTVwOIogLLleXkzEHFxDEJY56lyjowTXuS4zbSJE32A79qqu6qnqS7vdBXZzX1T2/aaurv6meAIIgCIIgCML/jAVwEEA/gBcAOgHUVdUIHjgAoFzV9vroWPjHeACfY4J+GakRPLA2JuRKa/CxA2GIk5qgm6hGcGQUDRFc0EtddyAMsUITsmqtVCcEmG1EW5vrDoQhHiUE3U51ggMLE0JWbb/LDoQhdhsEfZZqBQfuGwTd47IDAZgD4I9B0CUJy43tBiGr9kyCduOaYdADEnR6JgH4YRi0+A4H1luELL7DgQuWQYvv8OieywC+iu8I756/AjgnviO8ez5Pt9viOwK753UkkMR3BHTPPwFMBbBJfEdY93yVXm8R3xHWPW+j19U0TnxHIPf8B0Aj1cwT3xHOPZciNRPFd4Rzzx1Vdd/Ed6SnUeOeF1TVPhXf4d8998XUloroO8bQlOs0gBsAHpAQ2gVghkU/V5nw1HSvmstF8x0rATzRGLXvALoMltZO1rjn5pj6M0XyHeosHjRUmN105nOsY7Z7DWB0TH1hfMdMAB8NQ660PZr+zjPbKLkUx3DwHeMAbAFwG8A7AF8A3KEbK/WaF45ZhlymA5kW01c9vWYz5tbad8wG0Kt5rw+pxom5mvFUTc8+aQ6gI6a/Vs0Hoz6EOGrpO9T15q7BifUw6cyeAOAIgA+WZ6wKfzkdyBWm5nnMhfEEU6tmLhw+fUdd5LmYsue2Vbfjoyk7VcNJhUWauvWROnWhe8XUqQskRxOzjbqRseVQgIArTY3frHTnbm+TzmY1pES5ztTej9Q0a/qbogmnwdP6jqm0TaigP/kOOno2mzxzsiJhmlZxzzp8+I6dAUPWBp1m6PgYUZjVH1ofs81FqulLcM86XH2HOr7HgYNmhw7Qlf4wgPcJnfygeeOyFP7il+aMj7pnHa6+Y03gkBMvhj5p0Mxe3jrOHHocfUc3s72aHyfNUm4bTu8yfar3oOVZ0GHYr4vvUMPLb2b7jQbbz0oI28sNiy3zaKgoG7Zq98zh4js6mW37NTdJ1aizdTOAm3QLrlZW3aLhom64r6Prs+gzre+o19yc7EPOnxMsU1NK1ZS2lL6D8yS/6X/fiKfXIGh1C29KWt9xj9nuEgqy3vkV4559+o4lmv2vQk6oI6nEvdHjlv2l8R3cTOUx3cAU4pnBFsu+bNd36LzGDuSM6cyb/UyLz22x8R2c1xigD6EQixg7U/Zl6jt0XkN9e5/bH6Dqoi9e39C8V/1bGkx9h85rLPbwnnJPj+F4z60DUV9JCZ58x3yN19hgshMBRr6ji6npT3kBLiTtCb4j114jS9qYENWQUgivkRUtCb4j914jK5YyQZYSvMbqWh/4SKOJCfJpkbxGFjQwYQ5qvIa6FRdSYLMO5VtevUYWPLMI+lStD3YkU7IIWrxGAN8hXsMzZw2DFq8RyHeI18jId4jXyMh3RL2G/GK6B7hnYMRrZOQ7xGtk5DvEa2TkO3K5XqPWvC7Seo1a0hUTtPwcfaB1fftobZ9q8sfKBEEQBEFAcfkLQnsUV73Q5HsAAAAASUVORK5CYII="
+                      />
+                    </defs>
+                  </svg>
+
+                  <p>Пульс - {{ass.analyzeList[ass.timeSectionSig()].pulse}}</p>
+                </div>
+                <div>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                  >
+                    <mask
+                      id="mask0_20_648"
+                      style="mask-type: alpha"
+                      maskUnits="userSpaceOnUse"
+                      x="0"
+                      y="0"
+                      width="20"
+                      height="20"
+                    >
+                      <rect
+                        width="19.2"
+                        height="20"
+                        fill="url(#pattern0_20_648)"
+                      />
+                    </mask>
+                    <g mask="url(#mask0_20_648)">
+                      <rect
+                        x="19.2"
+                        width="20"
+                        height="19.2"
+                        transform="rotate(90 19.2 0)"
+                        fill="#F04438"
+                      />
+                    </g>
+                    <defs>
+                      <pattern
+                        id="pattern0_20_648"
+                        patternContentUnits="objectBoundingBox"
+                        width="1"
+                        height="1"
+                      >
+                        <use
+                          xlink:href="#image0_20_648"
+                          transform="matrix(0.0111111 0 0 0.0106667 0 0.02)"
+                        />
+                      </pattern>
+                      <image
+                        id="image0_20_648"
+                        width="90"
+                        height="90"
+                        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFdUlEQVR4nO2d2WtdRRjAf8Z6471WS7WagD65gOKCiKKVWFyKdXnQov+FbdMX9xcRwQXR1tiqTy647/ahVAQ1xjaNRWyh1AXUtpiq1cZqVWoMOfLJFwiamXNO7pwzMzfzg+/l5jLnm+/OmfmWmQkkEolEIpFIJBKJRKIUxwDLgDuBZ4CtwNfAGPCXyph+Nqzfke9eDbTKPWru0QOsBoaAcSCbpciP8BHQD5zku1MhcRmwAfi7DeOaRH6wd4A+5jCX68jLapIPgSXMIXqB54DJGo08XV7VaaqjuQn4xZOBp4sspMvpQBrAQElj7ANeAFaqN3E6sBA4SmWhfiZ/W6Xf/b5E+/JGrVHdOoJjgfcKdn4/8ChwQRvPuxBYC/xU8JnvAvOJnEXAtgKd3QOsAJoOn93Ut2Fvged/orpGiQQOWwq4X2srHlFi8HuAwzm6bItxZDcKTBc7gbNr1OkcYFeOTpt0/o+GvIXvRU+hsoT2r+ToJmtEFNyc05EBoMujfkcAD+d4I8tjCEZsfvIa4njrDoSeJ3k+Z7roIhy6cqYRyQgGm7uYtCx8LcJD5uzPLVNIkMkoU4LocM3eRVnO1dTqTLq/T2AssbyC9xI+91v0D2pUb7BEfM0a9ehWj0IWs9+Bpwo+X6a17wx9eJtA6LEk7SWsrtPIG2fQQYxdhH5L9HoiAbDakiBqejZyBvxWsI2WJRElORPvDHmOsLotRhY5WKKtxwxtfEAA7pFpxW4n1enKyCKPFG4NLrJ4TnWuNf9jmSVpH4KRN+r3yoTnPxjaWopH7jIoJdUOlxyti9WIehPiVex2bOQpXjK0dwceebaGxeMUYEeOUV0Z2eZ9PI1Hhg1KSR3P1UjeUaORhWsM7W7GI98alDrVUfv9NRsZLfjO1PY3eORng1LHO2p/pISRdzswsnCCoX3xsb1hcu1clfAPlTC0/OguaFhcPG+MB2ToXx09s9vQvgwqbxwIaOoYdvTMRRW/MbNij0Gp0xy1v6qEoV0lsM6wrAHeMO3bkIjR1Wu8vYCRP3M4XV1reMbHBBiwiFvmMmDZnmPkk2vIRnoNWO42KCVhrEu6Ndoc1gXykL5NKyrYpGgq2MrRDW8s9ZhUqgJbUukKPKdJTS6e7OqMjYstrl0r1MR/SJtl2k38y7EM76y0lLK8j4KSb6eplHULgWwDm6jYt60Dk7cxEdKZl7cMSu6NZFTPB0YNfXiDgOiz+Ln3ET4PWPRfTGBstmS9ziNczrdkIQcJkEssmxy/0kNDsW1yvJRAMRU2M+C1wLbtHgm8adFXtiAHS2/OsbMBwmGdRc8fQ9+ILtxg6UAGrPc8smUkP5Gjo5zwjTrCylRe9zRnH5czXUR1WEiYpydSbR36omZvRLyLLwscf5MRHxUL9ERqZpFx9WFbFXsWDxW4bGVEdY6SBQXrfvuB2x0bvKUFCFPEN10+dVjn9GrsTQU6O3W9wzr1yWezYHZpJLde2yq66Ubm7o5gXoEF8r8ibuLLwK3AdcBZmtxp6lYxcSXPBK4HbtMLT0wbejJLKje6Oblo4XNfSWNUITJV3UiH06uHO31c9TOpEV8wac86WKwl/LqMPKRz/5ylT/PZpuJBOzKhAUqwySEf9GhZbNDBBYODWt0JPl/hmxZwlR7dmLoy02TYrdOuzLwykopO0GQGSSRDx0mWRnQydEeRpRGdDB0NDeBBx3mQUc11d8zdo1VvYMnaFGk7oVSZ0ZMbeKOkpcn5gxUaJwtU5E6/x+u6UuLJADqceRaxQaVIqejPADqaeZY/qt6bkgxNPYYW0tTBvzudKqepe+hC+KcIWc0ypkVmr/crtcNohcaRiwMTNQQsch1mQmmosV2O7BSCJxIJIucfp7XIppkzV+oAAAAASUVORK5CYII="
+                      />
+                    </defs>
+                  </svg>
+                  <p>
+                    Давление -
+                    {{ass.analyzeList[ass.timeSectionSig()].pressure}}/{{ass.analyzeList[ass.timeSectionSig()].pressure}}
+                  </p>
+                </div>
+                <div>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                  >
+                    <mask
+                      id="mask0_20_649"
+                      style="mask-type: alpha"
+                      maskUnits="userSpaceOnUse"
+                      x="0"
+                      y="0"
+                      width="20"
+                      height="20"
+                    >
+                      <rect
+                        width="19.2"
+                        height="20"
+                        fill="url(#pattern0_20_649)"
+                      />
+                    </mask>
+                    <g mask="url(#mask0_20_649)">
+                      <rect
+                        x="19.2"
+                        width="20"
+                        height="19.2"
+                        transform="rotate(90 19.2 0)"
+                        fill="#8AC44B"
+                      />
+                    </g>
+                    <defs>
+                      <pattern
+                        id="pattern0_20_649"
+                        patternContentUnits="objectBoundingBox"
+                        width="1"
+                        height="1"
+                      >
+                        <use
+                          xlink:href="#image0_20_649"
+                          transform="matrix(0.0111111 0 0 0.0106667 0 0.02)"
+                        />
+                      </pattern>
+                      <image
+                        id="image0_20_649"
+                        width="90"
+                        height="90"
+                        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAADeUlEQVR4nO2cz04UQRDGv3DYDb6CFxHhKPoAeBBIBB9A4RmEV1BQIj6C4hsQUdCr/w6yEkU8IRGOAqJRFD2IMWA6qU02ZHdneqanu2v3+yWVhdlZuuajt7q6a3oAQgghhBBCCCG56QAwBuAxgG0Af+V1EcCovE9ychrAOwBHTWxFziMZMeJ9SRC5arsAurI21M50pOjJx+0tw4g9Y5YiV+1qhrbamicZhV4I7bg2djIKvRXacW0cZBT6T2jHtbGdUehPoR3XxmJGoR+GdlwboxmFvhLacY159IqlyG9aOY8uA5gA8BrAbzHz87i8l3dmuGsxMzyVoY0hALMA1mv8/wDgHoBBRMJJAO+bXPyqnJOHLpnxJfVk2+l3L4CXKf6BLwD0ICDlBJFrxS7nbKtDZnwLkicfyOsjicm24eICgO8WIcmc249ATFg4eg3x0GspctW+ATgTwuFlCycriIc04aKRPQ/h8C8LB/cRB0M5RK7aQMxC/0Qc3Hcg9F3fTmsMHesOhDapn1fGFQ6G+w6E9h4Gy5K6JTm2CqCEOFApNGQyslrwhCW20LGGQJQkNFRkgDS2JMdKiItZjYOhRgYdCH0x9EVo4WkOkc26B0mJWXz6qmkKrpl+Ec5G5GCLStrpkbWLJJGfsSe7YUAyibWarGlNjnHgI4RoocgiLPFYhG17fBZh2xqtRVh1aKykqMSmNmjOJW1U7bblHIBp+fbWbq8zv98C0AcPtHLo6JW7ndJc23zRt4ZpLMKm4bLcBmGzVPoDwAgKQmMRNo3I/yxFrpr53DAKQlsRNilc2Pbkej27GwWhqQjbjLQxOckeNG2lzTnvSGRjh76yEY1MOxTa2FToC4qVZcdCa0tnvfHZsdDcpet4N24jM3+PONyN28i4S7cBjNGeuOm4R9/w5bjGVbojh3n0WV+On5BcclMGBvM6CaAT8TLvSOg5nyJXGjixFLHYPbJWkUfkPZ9PJZtSHL9Gcq7eXfLp7GaCQxuIm+EMPXvPt8hpkn8Nj9zpllW4wxQD31yohxgm9eiP0EOfpH6VY5v6KxIivWUX9ZhMEPp6SOdaiU7JLuqJ/CrirEMlnZJdbMjXbUN6MkUmhJDWoATgjqwVm5RqRllVXQ0zdbIWc4x4qHrsUGX3bNURmiUiT6HjdhENtTslEdv0bA6GhBBCCCGEEAKP/AdayjxvuLp+AQAAAABJRU5ErkJggg=="
+                      />
+                    </defs>
+                  </svg>
+                  <p>
+                    Сатурация -
+                    {{ass.analyzeList[ass.timeSectionSig()].saturation}}
+                  </p>
+                </div>
+                <div>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                  >
+                    <mask
+                      id="mask0_76_364"
+                      style="mask-type: alpha"
+                      maskUnits="userSpaceOnUse"
+                      x="0"
+                      y="0"
+                      width="24"
+                      height="24"
+                    >
+                      <rect
+                        width="23.04"
+                        height="24"
+                        fill="url(#pattern0_76_364)"
+                      />
+                    </mask>
+                    <g mask="url(#mask0_76_364)">
+                      <rect
+                        x="23.04"
+                        width="24"
+                        height="23.04"
+                        transform="rotate(90 23.04 0)"
+                        fill="#8AC44B"
+                      />
+                    </g>
+                    <defs>
+                      <pattern
+                        id="pattern0_76_364"
+                        patternContentUnits="objectBoundingBox"
+                        width="1"
+                        height="1"
+                      >
+                        <use
+                          xlink:href="#image0_76_364"
+                          transform="matrix(0.0078125 0 0 0.0075 0 0.02)"
+                        />
+                      </pattern>
+                      <image
+                        id="image0_76_364"
+                        width="128"
+                        height="128"
+                        xlink:href="data:image/png;base64,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"
+                      />
+                    </defs>
+                  </svg>
+                  <p>
+                    Диагноз - без диагноза
+                    <!-- {{ass.analyzeList[ass.timeSectionSig()].saturation}} -->
+                  </p>
+                </div>
+                <div>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                  >
+                    <mask
+                      id="mask0_76_342"
+                      style="mask-type: alpha"
+                      maskUnits="userSpaceOnUse"
+                      x="0"
+                      y="0"
+                      width="24"
+                      height="24"
+                    >
+                      <rect
+                        width="23.04"
+                        height="24"
+                        fill="url(#pattern0_76_342)"
+                      />
+                    </mask>
+                    <g mask="url(#mask0_76_342)">
+                      <rect
+                        x="23.04"
+                        width="24"
+                        height="23.04"
+                        transform="rotate(90 23.04 0)"
+                        fill="#8AC44B"
+                      />
+                    </g>
+                    <defs>
+                      <pattern
+                        id="pattern0_76_342"
+                        patternContentUnits="objectBoundingBox"
+                        width="1"
+                        height="1"
+                      >
+                        <use
+                          xlink:href="#image0_76_342"
+                          transform="matrix(0.0078125 0 0 0.0075 0 0.02)"
+                        />
+                      </pattern>
+                      <image
+                        id="image0_76_342"
+                        width="128"
+                        height="128"
+                        xlink:href="data:image/png;base64,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"
+                      />
+                    </defs>
+                  </svg>
+                  <p>Дата исследования - сегодня в {{anal.time}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-mes">
+          <p *ngIf="anal.state === 'Хорошее'" class="good">В норме</p>
+          <p *ngIf="anal.state === 'Среднее'" class="sad">
+            Нужно записаться на прием
+          </p>
+          <p *ngIf="anal.state === 'Плохое'" class="bad">
+            Пора вызывать скорую
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="services">
+    <div>
+      <div class="doctor" (click)="openDoktor()">
+        <img src="../../../assets/icon/serves/doctor.svg" alt="" />
+      </div>
+      <p>Мой врач</p>
+    </div>
+    <div>
+      <div class="dio">
+        <svg
+          width="51"
+          height="54"
+          viewBox="0 0 51 54"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <mask
+            id="mask0_20_481"
+            style="mask-type: alpha"
+            maskUnits="userSpaceOnUse"
+            x="0"
+            y="0"
+            width="51"
+            height="54"
+          >
+            <rect width="51" height="54" fill="url(#pattern0_20_481)" />
+          </mask>
+          <g mask="url(#mask0_20_481)">
+            <rect
+              x="51"
+              width="54"
+              height="51"
+              transform="rotate(90 51 0)"
+              fill="white"
+            />
+          </g>
+          <defs>
+            <pattern
+              id="pattern0_20_481"
+              patternContentUnits="objectBoundingBox"
+              width="1"
+              height="1"
+            >
+              <use
+                xlink:href="#image0_20_481"
+                transform="matrix(0.0078125 0 0 0.00737847 0 0.0277778)"
+              />
+            </pattern>
+            <image
+              id="image0_20_481"
+              width="128"
+              height="128"
+              xlink:href="data:image/png;base64,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"
+            />
+          </defs>
+        </svg>
+      </div>
+      <p>Динамика анализов</p>
+    </div>
+    <div>
+      <div class="eri" (click)="toggleOverlay()">
+        <img src="../../../assets/icon/serves/eri.svg" alt="" />
+      </div>
+      <p>Скорая помощь</p>
+    </div>
+  </div>
 </ion-content>
+
+<div
+  class="overlay"
+  [style.display]="isOverlayVisible ? 'block' : 'none'"
+  (click)="onOverlayClick($event)"
+>
+  <app-eripomoch (closeOverlay)="toggleOverlay()"></app-eripomoch>
+</div>
+
+<div
+  class="overlay-doc"
+  [style.display]="isDoktor ? 'block' : 'none'"
+>
+  <app-doctor (closeOverlayy)="openDoktor()"></app-doctor>
+</div>
